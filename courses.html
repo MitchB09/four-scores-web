@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+  <script src="modules/courses.js"></script>
+  <script src="controllers/courseController.js"></script>
+</head>
+<body>
+
+  <div ng-app="courses" ng-init="courseId=1" ng-controller="courseController">
+    <div>
+      <div ng-repeat="course in courses" style="clear:left;padding:5px">
+        <span>{{course.courseId}}</span>
+        <span ng-click="getCourse(course.courseId);">{{course.name}}</span>
+        <span>{{course.holes.length}} Holes</span>
+        <span>Par: {{course.par}}</span>
+        <a href="javascript:void(0);" ng-click="getCourse(course.courseId);">Details</a>
+        <a href="javascript:void(0);" ng-click="getCourseRounds(course.courseId);">Rounds</a>
+        <div>
+          <div style="float:left">
+            <table>
+              <tr><td>Hole</td></tr>
+              <tr><td>Par</td></tr>
+              <tr><td>Yards</td></tr>
+            </table>
+          </div>
+          <div ng-repeat="hole in course.holes" style="float:left">
+            <table>
+              <tr><td>{{hole.holeNumber}}</td></tr>
+              <tr><td>{{hole.par}}</td></tr>
+              <tr><td>{{hole.yards}}</td></tr>
+            </table>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</body>
+</html>

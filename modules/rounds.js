@@ -1,1 +1,1 @@
-var courses = angular.module('courses', []);
+var rounds = angular.module('rounds', []);

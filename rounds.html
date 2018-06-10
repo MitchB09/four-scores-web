@@ -4,6 +4,7 @@
   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
   <script src="modules/rounds.js"></script>
   <script src="controllers/roundController.js"></script>
+  <script src="env.js"></script>
   <script
     src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
     integrity="sha256-3edrmyuQ0w65f8gfBsqowzjJe2iM6n0nKciPUp8y+7E="
@@ -19,46 +20,45 @@
   </script>
 
 </head>
-<body>
-
-  <div ng-app="rounds" ng-init="courseId=1" ng-controller="roundController">
-    <div>
-      <table>
-        <tr>
-          <th colspan="11">
-            {{course.name}}
-          </th>
-        </tr>
-        <tr>
-          <td>Hole</td>
-          <td ng-repeat="hole in course.holes">{{hole.holeNumber}}</td>
-          <td>OUT</td>
-        </tr>
-        <tr>
-          <td>Par</td>
-          <td ng-repeat="hole in course.holes">{{hole.par}}</td>
-          <td>{{course.par}}</td>
-        </tr>
-        <tr ng-init="total=0">
-          <td>Yards</td>
-          <td ng-repeat="hole in course.holes" ng-init="$parent.total = $parent.total + hole.yards">{{hole.yards}}</td>
-          <td>{{total}}</td>
-        </tr>
-        <tbody>
-          <tr ng-init="playerScore=0">>
-            <td>
-              <select>
-                <option value="-1" selected></option>
-                <option ng-repeat="player in players" value="player.id">{{player.name}}</option>
-              </select>
-            </td>
-            <td ng-repeat="hole in course.holes"><input type="text" data-holeNumber="hole.holeNumber" size="2" maxlength="2"/></td>
-            <td></td>
+  <body>
+    <div ng-app="rounds" ng-init="courseId=1" ng-controller="roundController">
+      <div>
+        <table>
+          <tr>
+            <th colspan="11">
+              {{course.name}}
+            </th>
           </tr>
-        </tbody>
-      </table>
-      <span class="_addPlayer">+ Player</span>
+          <tr>
+            <td>Hole</td>
+            <td ng-repeat="hole in course.holes">{{hole.holeNumber}}</td>
+            <td>OUT</td>
+          </tr>
+          <tr>
+            <td>Par</td>
+            <td ng-repeat="hole in course.holes">{{hole.par}}</td>
+            <td>{{course.par}}</td>
+          </tr>
+          <tr ng-init="total=0">
+            <td>Yards</td>
+            <td ng-repeat="hole in course.holes" ng-init="$parent.total = $parent.total + hole.yards">{{hole.yards}}</td>
+            <td>{{total}}</td>
+          </tr>
+          <tbody>
+            <tr ng-init="playerScore=0">
+              <td>
+                <select>
+                  <option value="-1" selected></option>
+                  <option ng-repeat="player in players" value="player.id">{{player.name}}</option>
+                </select>
+              </td>
+              <td ng-repeat="hole in course.holes"><input type="text" data-holeNumber="hole.holeNumber" size="2" maxlength="2"/></td>
+              <td></td>
+            </tr>
+          </tbody>
+        </table>
+        <span class="_addPlayer">+ Player</span>
+      </div>
     </div>
-  </div>
-</body>
+  </body>
 </html>

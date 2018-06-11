@@ -10,15 +10,6 @@
     integrity="sha256-3edrmyuQ0w65f8gfBsqowzjJe2iM6n0nKciPUp8y+7E="
     crossorigin="anonymous">
   </script>
-  <script>
-    $(function() {
-      $("._addPlayer").click(function(event) {
-         var $newRow = $(this).closest("tbody tr:last").clone(false);
-         $newRow.appendTo($(this).closest("tbody tr:last"));
-      });
-    });
-  </script>
-
 </head>
   <body>
     <div ng-app="rounds" ng-init="courseId=1" ng-controller="roundController">
@@ -45,19 +36,20 @@
             <td>{{total}}</td>
           </tr>
           <tbody>
-            <tr ng-init="playerScore=0">
+            <tr class="_playerRound" ng-repeat="playerRound in round.playerRounds" ng-init="playerTotal=0">
               <td>
-                <select>
-                  <option value="-1" selected></option>
-                  <option ng-repeat="player in players" value="player.id">{{player.name}}</option>
-                </select>
+                {{playerRound.player.name}}
               </td>
-              <td ng-repeat="hole in course.holes"><input type="text" data-holeNumber="hole.holeNumber" size="2" maxlength="2"/></td>
-              <td></td>
+              <td ng-repeat="hole in course.holes">
+                <input type="text" ng-model="playerRound.scores[$index].strokes" size="2" maxlength="2"
+                ng-change="getTotal(playerRound)"/>
+              </td>
+              <td><input type="text" size="10" ng-model="playerRound.totalStrokes" disabled/></td>
             </tr>
           </tbody>
         </table>
-        <span class="_addPlayer">+ Player</span>
+        <span><select ng-model="newPlayer" ng-options="x.name for x in players" ng-change="console.log(rounds);"></span>
+        <input type="button" value="+ Player" ng-click="addPlayer()"/>
       </div>
     </div>
   </body>

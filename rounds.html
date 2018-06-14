@@ -34,23 +34,30 @@
             <td>Yards</td>
             <td ng-repeat="hole in course.holes" ng-init="$parent.total = $parent.total + hole.yards">{{hole.yards}}</td>
             <td>{{total}}</td>
+            <td></td>
           </tr>
           <tbody>
+            <tr>
+              <td>Date:</td>
+              <td colspan="11"><input ng-model="round.date" type="date"></td>
+            </tr>
             <tr class="_playerRound" ng-repeat="playerRound in round.playerRounds" ng-init="playerTotal=0">
               <td>
                 {{playerRound.player.name}}
               </td>
-              <td ng-repeat="hole in course.holes">
-                <input type="text" ng-model="playerRound.scores[$index].strokes" size="2" maxlength="2"
+              <td ng-repeat="score in playerRound.scores">
+                <input type="text" ng-model="score.strokes" size="2" maxlength="2"
                 ng-change="getTotal(playerRound)"/>
               </td>
               <td><input type="text" size="10" ng-model="playerRound.totalStrokes" disabled/></td>
+              <td><input type="button" value="Remove" ng-click="removePlayer(playerRound)"/></td>
             </tr>
           </tbody>
         </table>
         <span><select ng-model="newPlayer" ng-options="x.name for x in players" ng-change="console.log(rounds);"></span>
         <input type="button" value="+ Player" ng-click="addPlayer()"/>
       </div>
+      <input type="button" value="Save Round" ng-click="saveRound()"/>
     </div>
   </body>
 </html>

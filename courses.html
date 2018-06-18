@@ -21,11 +21,12 @@
           <a href="javascript:void(0);" ng-click="shown = false;">Hide</a>
         </span>
         <a href="javascript:void(0);" ng-click="getCourseRounds(course.courseId);">Rounds</a>
+        <a href="javascript:void(0);" ng-click="deleteCourse(course.courseId);">Delete</a>
         <div ng-show="shown">
           <table>
-            <tr><td>Hole</td><td ng-repeat="hole in course.holes">{{hole.holeNumber}}</td></tr>
-            <tr><td>Par</td><td ng-repeat="hole in course.holes">{{hole.par}}</td></tr>
-            <tr><td>Yards</td><td ng-repeat="hole in course.holes">{{hole.yards}}</td></tr>
+            <tr class="hole"><td>Hole</td><td ng-repeat="hole in course.holes">{{hole.holeNumber}}</td></tr>
+            <tr class="par"><td>Par</td><td ng-repeat="hole in course.holes">{{hole.par}}</td></tr>
+            <tr class="yards"><td>Yards</td><td ng-repeat="hole in course.holes">{{hole.yards}}</td></tr>
           </table>
         </div>
       </div>

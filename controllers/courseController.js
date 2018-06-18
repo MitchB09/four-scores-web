@@ -41,4 +41,17 @@ courses.controller("courseController", function($scope, $http) {
           console.log("Finally!");
         });
     }
+
+    $scope.deleteCourse = function(courseId){
+      $http.delete(window.__env.apiUrl + window.__env.baseUrl + "courses/" + courseId)
+        .then(function(response) {
+          console.log(response);
+        })
+        .catch(function(response) {
+          console.log(response);
+        })
+        .finally(function() {
+          console.log("Finally!");
+        });
+    }
 });

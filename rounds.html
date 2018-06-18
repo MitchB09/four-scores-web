@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en-US">
 <head>
+  <link rel="stylesheet" type="text/css" href="styles/main.css">
   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
   <script src="modules/rounds.js"></script>
   <script src="controllers/roundController.js"></script>
@@ -14,45 +15,66 @@
   <body>
     <div ng-app="rounds" ng-init="courseId=1" ng-controller="roundController">
       <div>
-        <table>
-          <tr>
-            <th colspan="11">
+        <table class="courseTable">
+          <tr class="courseName">
+            <th colspan="12">
               {{course.name}}
             </th>
           </tr>
-          <tr>
+          <tr class="hole">
             <td>Hole</td>
             <td ng-repeat="hole in course.holes">{{hole.holeNumber}}</td>
             <td>OUT</td>
+            <td></td>
           </tr>
-          <tr>
+          <tr class="par">
             <td>Par</td>
             <td ng-repeat="hole in course.holes">{{hole.par}}</td>
             <td>{{course.par}}</td>
+            <td></td>
           </tr>
-          <tr ng-init="total=0">
+          <tr class="yards" ng-init="total=0">
             <td>Yards</td>
             <td ng-repeat="hole in course.holes" ng-init="$parent.total = $parent.total + hole.yards">{{hole.yards}}</td>
             <td>{{total}}</td>
             <td></td>
           </tr>
-          <tbody>
-            <tr>
-              <td>Date:</td>
-              <td colspan="11"><input ng-model="round.date" type="date"></td>
-            </tr>
-            <tr class="_playerRound" ng-repeat="playerRound in round.playerRounds" ng-init="playerTotal=0">
-              <td>
-                {{playerRound.player.name}}
-              </td>
-              <td ng-repeat="score in playerRound.scores">
-                <input type="text" ng-model="score.strokes" size="2" maxlength="2"
-                ng-change="getTotal(playerRound)"/>
-              </td>
-              <td><input type="text" size="10" ng-model="playerRound.totalStrokes" disabled/></td>
-              <td><input type="button" value="Remove" ng-click="removePlayer(playerRound)"/></td>
-            </tr>
-          </tbody>
+        </table>
+        <table ng-repeat="round in existingRounds" class="courseTable">
+          <tr class="roundDate">
+            <td>Date:</td>
+            <td colspan="3">{{round.date}}</td>
+            <td colspan="8"><span>
+              <a href="javascript:void(0);" ng-click="deleteRound(round.roundId);">Delete</a>
+            </span></td>
+          </td>
+          <tr class="playerRound" ng-repeat="playerRound in round.playerRounds">
+            <td>
+              {{playerRound.player.name}}
+            </td>
+            <td ng-repeat="score in playerRound.scores">
+              {{score.strokes}}
+            </td>
+            <td>{{playerRound.totalStrokes}}</td>
+            <td><a href="javascript:void(0);">Edit</a></td>
+          </tr>
+        </table>
+        <table class="courseTable">
+          <tr class="roundDate">
+            <td>Date:</td>
+            <td colspan="11"><input ng-model="round.date" type="date"></td>
+          </tr>
+          <tr class="_playerRound" ng-repeat="playerRound in round.playerRounds" ng-init="playerTotal=0">
+            <td>
+              {{playerRound.player.name}}
+            </td>
+            <td ng-repeat="score in playerRound.scores">
+              <input type="text" ng-model="score.strokes" size="2" maxlength="2"
+              ng-change="getTotal(playerRound)"/>
+            </td>
+            <td><input type="text" size="3" ng-model="playerRound.totalStrokes" disabled/></td>
+            <td><input type="button" value="Remove" ng-click="removePlayer(playerRound)"/></td>
+          </tr>
         </table>
         <span><select ng-model="newPlayer" ng-options="x.name for x in players" ng-change="console.log(rounds);"></span>
         <input type="button" value="+ Player" ng-click="addPlayer()"/>

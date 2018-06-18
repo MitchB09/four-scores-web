@@ -1,0 +1,46 @@
+.courseTable tr td:first-of-type {
+  width: 80px !important;
+  border: 1px solid black;
+}
+
+.courseTable tr td:nth-last-of-type(2) {
+  width: 60px !important;
+}
+
+.courseTable tr td:last-of-type {
+  width: 80px !important;
+}
+
+.courseTable tr td {
+  width: 40px;
+  text-align: center;
+}
+
+.courseTable,  tr{
+  border: 1px solid black;
+  border-collapse: collapse;
+}
+
+.courseTable tr.courseName{
+  background-color: #d11141;
+}
+
+.courseTable tr.hole{
+  background-color: #00b159;
+}
+
+.courseTable tr.par{
+  background-color: #f37735;
+}
+
+.courseTable tr.yards{
+  background-color: #ffc425;
+}
+
+.courseTable tr.roundDate{
+  background-color: #00aedb
+}
+
+.courseTable tr.playerRound:nth-child(even) {
+  background-color: #cccccc;
+}

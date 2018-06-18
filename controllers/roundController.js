@@ -16,6 +16,10 @@ rounds.controller("roundController", function($scope, $http, $location) {
       $scope.players = response.data;
     });
 
+    $http.get(window.__env.apiUrl + window.__env.baseUrl + "courses/" + courseId + "/rounds").then(function(response){
+      $scope.existingRounds = response.data;
+    });
+
     $scope.course = course;
 
     $scope.addPlayer = function(){
@@ -52,6 +56,19 @@ rounds.controller("roundController", function($scope, $http, $location) {
 
     $scope.saveRound = function(round){
       $http.post(window.__env.apiUrl + window.__env.baseUrl + "rounds", $scope.round)
+        .then(function(response) {
+          console.log(response);
+        })
+        .catch(function(response) {
+          console.log(response);
+        })
+        .finally(function() {
+          console.log("Finally!");
+        });
+    }
+
+    $scope.deleteRound = function(roundId){
+      $http.delete(window.__env.apiUrl + window.__env.baseUrl + "rounds/" + roundId)
         .then(function(response) {
           console.log(response);
         })

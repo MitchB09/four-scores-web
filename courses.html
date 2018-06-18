@@ -8,34 +8,61 @@
 </head>
 <body>
 
-  <div ng-app="courses" ng-init="courseId=1" ng-controller="courseController">
-    <div>
-      <div ng-repeat="course in courses" style="clear:left;padding:5px">
+  <div ng-app="courses" ng-controller="courseController">
+      <div ng-repeat="course in courses" style="clear:left;padding:5px" ng-init="shown = false">
         <span>{{course.courseId}}</span>
         <span ng-click="getCourse(course.courseId);">{{course.name}}</span>
         <span>{{course.holes.length}} Holes</span>
         <span>Par: {{course.par}}</span>
-        <a href="javascript:void(0);" ng-click="getCourse(course.courseId);">Details</a>
+        <span ng-show="!shown">
+          <a href="javascript:void(0);" ng-click="shown = true;">Show</a>
+        </span>
+        <span ng-show="shown">
+          <a href="javascript:void(0);" ng-click="shown = false;">Hide</a>
+        </span>
         <a href="javascript:void(0);" ng-click="getCourseRounds(course.courseId);">Rounds</a>
-        <div>
-          <div style="float:left">
-            <table>
-              <tr><td>Hole</td></tr>
-              <tr><td>Par</td></tr>
-              <tr><td>Yards</td></tr>
-            </table>
-          </div>
-          <div ng-repeat="hole in course.holes" style="float:left">
-            <table>
-              <tr><td>{{hole.holeNumber}}</td></tr>
-              <tr><td>{{hole.par}}</td></tr>
-              <tr><td>{{hole.yards}}</td></tr>
-            </table>
-          </div>
+        <div ng-show="shown">
+          <table>
+            <tr><td>Hole</td><td ng-repeat="hole in course.holes">{{hole.holeNumber}}</td></tr>
+            <tr><td>Par</td><td ng-repeat="hole in course.holes">{{hole.par}}</td></tr>
+            <tr><td>Yards</td><td ng-repeat="hole in course.holes">{{hole.yards}}</td></tr>
+          </table>
         </div>
-
       </div>
-    </div>
+      <span ng-init="createNew = false" ng-click="createNew = true">New</span>
+      <div ng-show="createNew">
+        <span>
+          <select ng-model="courseType" ng-options="x.name for x in courseTypes" ng-change="initNewCourseHoles">
+        </span>
+        <span><input type="button" value="+ Course" ng-click="initNewCourseHoles()"/></span>
+        <div>
+          <span></span>
+          <span><input ng-model="newCourse.name" type="text"/></span>
+          <span>{{courseType.name}}</span>
+          <div>
+            <table>
+              <tr>
+                <td>Hole</td>
+                <td ng-repeat="hole in newCourse.holes">
+                  <input ng-model="hole.holeNumber" type="hidden"/>{{hole.holeNumber}}
+                </td>
+              </tr>
+              <tr>
+                <td>Par</td>
+                <td ng-repeat="hole in newCourse.holes">
+                  <input ng-model="hole.par" type="text" size="3" maxlength="2"/>
+                </td>
+              </tr>
+              <tr>
+                <td>Yards</td>
+                <td ng-repeat="hole in newCourse.holes">
+                  <input ng-model="hole.yards" type="text" size="3" maxlength="3"/>
+                </td>
+            </table>
+          </div>
+          <input type="button" value="Save Course" ng-click="saveCourse(newCourse)"/>
+        </div>
+      </div>
   </div>
 </body>
 </html>

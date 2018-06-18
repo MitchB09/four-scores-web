@@ -1,13 +1,20 @@
-courses.service('courseService', function($http) {
-    this.getCourse = function (courseId) {
-      $http.get("http://192.168.2.12:8080/courses/" + courseId).then(function(response){
-        return response.data
-      });
-    }
+courses.service("courseService", function($http) {
 
-    this.getCourseRounds = function (courseId) {
-      $http.get("http://192.168.2.12:8080/courses/" + courseId + "/rounds").then(function(response){
-        return response.data
-      });
-    }
+  this.getCourses = function () {
+    $http.get(window.__env.apiUrl + window.__env.baseUrl + "courses").then(function(response){
+      return response.data;
+    });
+  }
+
+  this.getCourse = function (courseId) {
+    $http.get(window.__env.apiUrl + window.__env.baseUrl + "courses/" + courseId).then(function(response){
+      return response.data;
+    });
+  }
+
+  this.getCourseRounds = function (courseId) {
+    $http.get(window.__env.apiUrl + window.__env.baseUrl + "courses/" + courseId + "/rounds").then(function(response){
+      return response.data;
+    });
+  }
 });

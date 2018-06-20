@@ -17,7 +17,7 @@
       <div>
         <table class="courseTable">
           <tr class="courseName">
-            <th colspan="12">
+            <th colspan="{{course.holes.length + 3}}">
               {{course.name}}
             </th>
           </tr>
@@ -43,10 +43,15 @@
         <table ng-repeat="round in existingRounds" class="courseTable">
           <tr class="roundDate">
             <td>Date:</td>
-            <td colspan="3">{{round.date}}</td>
-            <td colspan="8"><span>
-              <a href="javascript:void(0);" ng-click="deleteRound(round.roundId);">Delete</a>
-            </span></td>
+            <td colspan="{{course.holes.length + 2}}">
+              <span>
+                {{round.date}}
+              </span>
+              <span style="float:right;">
+                <a href="javascript:void(0);" ng-click="deleteRound(round.roundId);">Delete</a>
+                <a href="javascript:void(0);">Edit</a>
+              </span>
+            </td>
           </td>
           <tr class="playerRound" ng-repeat="playerRound in round.playerRounds">
             <td>
@@ -56,15 +61,15 @@
               {{score.strokes}}
             </td>
             <td>{{playerRound.totalStrokes}}</td>
-            <td><a href="javascript:void(0);">Edit</a></td>
+            <td></td>
           </tr>
         </table>
         <table class="courseTable">
           <tr class="roundDate">
             <td>Date:</td>
-            <td colspan="11"><input ng-model="round.date" type="date"></td>
+            <td colspan="{{course.holes.length + 2}}"><input ng-model="round.date" type="date"></td>
           </tr>
-          <tr class="_playerRound" ng-repeat="playerRound in round.playerRounds" ng-init="playerTotal=0">
+          <tr class="playerRound" ng-repeat="playerRound in round.playerRounds" ng-init="playerTotal=0">
             <td>
               {{playerRound.player.name}}
             </td>

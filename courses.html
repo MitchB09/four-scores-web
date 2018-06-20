@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en-US">
 <head>
+  <link rel="stylesheet" type="text/css" href="styles/main.css">
   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
   <script src="modules/courses.js"></script>
   <script src="controllers/courseController.js"></script>
@@ -20,48 +21,51 @@
         <span ng-show="shown">
           <a href="javascript:void(0);" ng-click="shown = false;">Hide</a>
         </span>
-        <a href="javascript:void(0);" ng-click="getCourseRounds(course.courseId);">Rounds</a>
+        <a href="/rounds?courseId={{course.courseId}}" ng-click="getCourseRounds(course.courseId);">Rounds</a>
         <a href="javascript:void(0);" ng-click="deleteCourse(course.courseId);">Delete</a>
         <div ng-show="shown">
-          <table>
-            <tr class="hole"><td>Hole</td><td ng-repeat="hole in course.holes">{{hole.holeNumber}}</td></tr>
-            <tr class="par"><td>Par</td><td ng-repeat="hole in course.holes">{{hole.par}}</td></tr>
-            <tr class="yards"><td>Yards</td><td ng-repeat="hole in course.holes">{{hole.yards}}</td></tr>
+          <table class="courseTable">
+            <tr class="hole"><td>Hole</td><td ng-repeat="hole in course.holes">{{hole.holeNumber}}</td><td></td><td>OUT</td></tr>
+            <tr class="par"><td>Par</td><td ng-repeat="hole in course.holes">{{hole.par}}</td><td></td><td>{{course.par}}</td></tr>
+            <tr class="yards"><td>Yards</td><td ng-repeat="hole in course.holes">{{hole.yards}}</td><td></td><td>{{course.totalYards}}</td></tr>
           </table>
         </div>
       </div>
-      <span ng-init="createNew = false" ng-click="createNew = true">New</span>
+      <span ng-init="createNew = false" ng-hide="createNew"><input type="button" value="New" ng-click="createNew = true"/></span>
       <div ng-show="createNew">
         <span>
-          <select ng-model="courseType" ng-options="x.name for x in courseTypes" ng-change="initNewCourseHoles">
+          <select ng-model="courseType" ng-options="x.name for x in courseTypes" ng-change="initNewCourseHoles()">
         </span>
-        <span><input type="button" value="+ Course" ng-click="initNewCourseHoles()"/></span>
         <div>
           <span></span>
-          <span><input ng-model="newCourse.name" type="text"/></span>
+          <span>Name: <input ng-model="newCourse.name" type="text"/></span>
           <span>{{courseType.name}}</span>
           <div>
-            <table>
-              <tr>
+            <table class="courseTable">
+              <tr class="hole">
                 <td>Hole</td>
                 <td ng-repeat="hole in newCourse.holes">
                   <input ng-model="hole.holeNumber" type="hidden"/>{{hole.holeNumber}}
                 </td>
+                <td></td><td></td>
               </tr>
-              <tr>
+              <tr class="par">
                 <td>Par</td>
                 <td ng-repeat="hole in newCourse.holes">
-                  <input ng-model="hole.par" type="text" size="3" maxlength="2"/>
+                  <input ng-model="hole.par" type="text" size="1" maxlength="2"/>
                 </td>
+                <td></td><td></td>
               </tr>
-              <tr>
+              <tr class="yards" ng-init="totalYards=0">
                 <td>Yards</td>
                 <td ng-repeat="hole in newCourse.holes">
-                  <input ng-model="hole.yards" type="text" size="3" maxlength="3"/>
+                  <input ng-model="hole.yards" type="text" size="1" maxlength="3"/>
                 </td>
+                <td></td><td></td>
             </table>
           </div>
           <input type="button" value="Save Course" ng-click="saveCourse(newCourse)"/>
+          <input type="button" value="Cancel" ng-click="createNew = false"/>
         </div>
       </div>
   </div>
